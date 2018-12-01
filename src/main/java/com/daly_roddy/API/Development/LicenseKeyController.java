@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/")
@@ -13,25 +14,23 @@ public class LicenseKeyController {
     @Autowired
     private EncryptionService encryptionService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    @ResponseBody
-    public String landingPage(@RequestParam("name") String name){
-        return name;
+    public void landingPage(HttpServletResponse response) throws IOException {
+        response.sendRedirect("swagger-ui.html");
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String page(){
-        return "Welcome.html";
-    }
 
     @RequestMapping(value = "/getkey", method = RequestMethod.POST)
     @ResponseBody
-    public String getKey(@RequestBody EncryptionDetails encryptionDetails){
-        if(true){
+    public String getKey(@RequestBody EncryptionDetails encryptionDetails, HttpServletResponse response){
+        if(authenticationService.authenticate(encryptionDetails.getPassword())){
             return encryptionService.encrypt(encryptionDetails.getFirstName(), encryptionDetails.getLastname(), encryptionDetails.getProgram());
         }
-
-        return null;
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        return "Password incorrect";
     }
 
     @RequestMapping(value = "/verifyKey", method = RequestMethod.POST)
