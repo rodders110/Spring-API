@@ -1,4 +1,4 @@
-package com.daly_roddy.API.Development;
+package com.daly_roddy.API.Development.Details;
 
 public class DecryptionDetails {
 

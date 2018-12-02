@@ -1,4 +1,4 @@
-package com.daly_roddy.API.Development;
+package com.daly_roddy.API.Development.Configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
