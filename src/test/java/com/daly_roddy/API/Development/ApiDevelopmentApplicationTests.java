@@ -83,7 +83,7 @@ public class ApiDevelopmentApplicationTests {
 	}
 
 	@Test
-	public void givenAValidPassword()throws Exception{
+	public void givenAValidPasswordWhenEnteringDetailsToGenerateKey()throws Exception{
 
 		URI uri = new URI("/getkey");
 		MvcResult result = mockMvc.perform(post(uri)
@@ -98,7 +98,7 @@ public class ApiDevelopmentApplicationTests {
 	}
 
 	@Test
-	public void givenAnInvalidPassword() throws Exception{
+	public void givenAnInvalidPasswordWhenEnteringDetailsToGenerateKey() throws Exception{
 
 		URI uri = new URI("/getkey");
 		MvcResult result = mockMvc.perform(post(uri)
@@ -113,7 +113,7 @@ public class ApiDevelopmentApplicationTests {
 	}
 
 	@Test
-	public void givenAValidKey() throws Exception{
+	public void givenAValidKeyWhenVerifyingLicenseKey() throws Exception{
 
 		URI uri = new URI("/verifyKey");
 		MvcResult result = mockMvc.perform(post(uri)
@@ -128,7 +128,7 @@ public class ApiDevelopmentApplicationTests {
 	}
 
 	@Test
-	public void givenAValidKeyButWrongDetails() throws Exception{
+	public void givenAValidKeyButWrongDetailsWhenVerifyingLicenseKey() throws Exception{
 
 		URI uri = new URI("/verifyKey");
 		MvcResult result = mockMvc.perform(post(uri)
@@ -143,7 +143,7 @@ public class ApiDevelopmentApplicationTests {
 	}
 
 	@Test
-	public void givenAnInvalidKey() throws Exception{
+	public void givenAnInvalidKeyWhenVerifyingLicenseKey() throws Exception{
 
 		URI uri = new URI("/verifyKey");
 		MvcResult result = mockMvc.perform(post(uri)
