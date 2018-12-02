@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.daly_roddy</groupId>
-	<artifactId>API Development</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>API_Development</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>API Development</name>
