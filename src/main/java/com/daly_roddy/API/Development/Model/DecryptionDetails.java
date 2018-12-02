@@ -1,9 +1,9 @@
-package com.daly_roddy.API.Development.Details;
+package com.daly_roddy.API.Development.Model;
 
 public class DecryptionDetails {
 
     private String fullName;
-    private String program;
+    private String Software;
     private String license;
 
     public String getFullName() {
@@ -14,7 +14,6 @@ public class DecryptionDetails {
         this.fullName = fullName;
     }
 
-
     public String getLicense() {
         return license;
     }
@@ -23,11 +22,11 @@ public class DecryptionDetails {
         this.license = license;
     }
 
-    public String getProgram() {
-        return program;
+    public String getSoftware() {
+        return Software;
     }
 
-    public void setProgram(String program) {
-        this.program = program;
+    public void setSoftware(String software) {
+        this.Software = software;
     }
 }

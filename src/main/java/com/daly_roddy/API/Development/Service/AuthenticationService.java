@@ -1,11 +1,13 @@
-package com.daly_roddy.API.Development.Services;
+package com.daly_roddy.API.Development.Service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
 
-    private final String password = "password1";
+    @Value("${authentication.password}")
+    private String password;
 
     public boolean authenticate(String password){
         return password.equals(this.password);

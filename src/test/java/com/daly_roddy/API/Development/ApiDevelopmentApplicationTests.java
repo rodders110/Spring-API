@@ -1,10 +1,10 @@
 package com.daly_roddy.API.Development;
 
 import com.daly_roddy.API.Development.Controller.LicenseKeyController;
-import com.daly_roddy.API.Development.Details.DecryptionDetails;
-import com.daly_roddy.API.Development.Details.EncryptionDetails;
-import com.daly_roddy.API.Development.Services.AuthenticationService;
-import com.daly_roddy.API.Development.Services.EncryptionService;
+import com.daly_roddy.API.Development.Model.DecryptionDetails;
+import com.daly_roddy.API.Development.Model.EncryptionDetails;
+import com.daly_roddy.API.Development.Service.AuthenticationService;
+import com.daly_roddy.API.Development.Service.HashingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,6 +15,7 @@ import org.mockito.Spy;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -40,7 +41,7 @@ public class ApiDevelopmentApplicationTests {
 	private AuthenticationService authenticationService;
 
 	@Spy
-	private EncryptionService encryptionService;
+	private HashingService hashingService;
 
 	@InjectMocks
 	private LicenseKeyController licenseKeyController = new LicenseKeyController();
@@ -48,33 +49,37 @@ public class ApiDevelopmentApplicationTests {
 	@Before
 	public void setUpRequestObjects(){
 
+		// inject fields which would normally be gathered from application.properties
+		ReflectionTestUtils.setField(authenticationService, "password", "password1");
+		ReflectionTestUtils.setField(hashingService, "salt","sodiumchloride");
+
 		mockMvc = MockMvcBuilders
 				.standaloneSetup(licenseKeyController)
 				.build();
 
 		authorisedEncryptionDetails = new EncryptionDetails();
 		authorisedEncryptionDetails.setFullName("James Bond");
-		authorisedEncryptionDetails.setProgram("Claris works");
+		authorisedEncryptionDetails.setSoftware("Claris works");
 		authorisedEncryptionDetails.setPassword("password1");
 
 		unauthorisedEncryptionDetails = new EncryptionDetails();
 		unauthorisedEncryptionDetails.setFullName("James Bond");
-		unauthorisedEncryptionDetails.setProgram("Claris works");
+		unauthorisedEncryptionDetails.setSoftware("Claris works");
 		unauthorisedEncryptionDetails.setPassword("tiddlewinks");
 
 		authorisedDecryptionDetails = new DecryptionDetails();
 		authorisedDecryptionDetails.setFullName("James Bond");
-		authorisedDecryptionDetails.setProgram("Claris Works");
+		authorisedDecryptionDetails.setSoftware("Claris Works");
 		authorisedDecryptionDetails.setLicense("f577e762a302036e92f1f882a970d70375a472fe21b2ec809f01e25cd67d4db4");
 
 		badDetailsDecryptionDetails = new DecryptionDetails();
 		badDetailsDecryptionDetails.setFullName("John Wand");
-		badDetailsDecryptionDetails.setProgram("Claris Works");
+		badDetailsDecryptionDetails.setSoftware("Claris Works");
 		badDetailsDecryptionDetails.setLicense("f577e762a302036e92f1f882a970d70375a472fe21b2ec809f01e25cd67d4db4");
 
 		badKeyDecryptionDetails = new DecryptionDetails();
 		badKeyDecryptionDetails.setFullName("James Bond");
-		badKeyDecryptionDetails.setProgram("Claris Works");
+		badKeyDecryptionDetails.setSoftware("Claris Works");
 		badKeyDecryptionDetails.setLicense("f577e762a302036g92f1f882a970d70375b472fe21b2ec809f01e25cd67d4db5");
 	}
 

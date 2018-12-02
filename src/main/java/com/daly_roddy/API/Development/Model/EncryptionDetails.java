@@ -1,9 +1,9 @@
-package com.daly_roddy.API.Development.Details;
+package com.daly_roddy.API.Development.Model;
 
 public class EncryptionDetails {
 
     private String fullName;
-    private String program;
+    private String Software;
     private String password;
 
     public String getFullName() {
@@ -14,12 +14,12 @@ public class EncryptionDetails {
         this.fullName = fullName;
     }
 
-    public String getProgram() {
-        return program;
+    public String getSoftware() {
+        return Software;
     }
 
-    public void setProgram(String program) {
-        this.program = program;
+    public void setSoftware(String software) {
+        this.Software = software;
     }
 
     public String getPassword() {

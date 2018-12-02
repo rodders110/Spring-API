@@ -1,9 +1,9 @@
 package com.daly_roddy.API.Development.Controller;
 
-import com.daly_roddy.API.Development.Services.AuthenticationService;
-import com.daly_roddy.API.Development.Details.DecryptionDetails;
-import com.daly_roddy.API.Development.Details.EncryptionDetails;
-import com.daly_roddy.API.Development.Services.EncryptionService;
+import com.daly_roddy.API.Development.Service.AuthenticationService;
+import com.daly_roddy.API.Development.Model.DecryptionDetails;
+import com.daly_roddy.API.Development.Model.EncryptionDetails;
+import com.daly_roddy.API.Development.Service.HashingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class LicenseKeyController {
 
     @Autowired
-    private EncryptionService encryptionService;
+    private HashingService hashingService;
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -29,13 +29,12 @@ public class LicenseKeyController {
         response.sendRedirect("swagger-ui.html");
     }
 
-
     @RequestMapping(value = "/getkey", method = RequestMethod.POST)
     @ResponseBody
     public String getKey(@RequestBody EncryptionDetails encryptionDetails, HttpServletResponse response){
         if(authenticationService.authenticate(encryptionDetails.getPassword())){
             response.setStatus(HttpServletResponse.SC_OK);
-            return encryptionService.encrypt(encryptionDetails.getFullName(), encryptionDetails.getProgram());
+            return hashingService.encrypt(encryptionDetails.getFullName(), encryptionDetails.getSoftware());
         }
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         return "Password incorrect";
@@ -43,10 +42,7 @@ public class LicenseKeyController {
 
     @RequestMapping(value = "/verifyKey", method = RequestMethod.POST)
     public void checkLicenseKey(@RequestBody DecryptionDetails decryptionDetails, HttpServletResponse response){
-
-
-
-        if(encryptionService.verify(decryptionDetails.getFullName(), decryptionDetails.getProgram(), decryptionDetails.getLicense())){
+        if(hashingService.verify(decryptionDetails.getFullName(), decryptionDetails.getSoftware(), decryptionDetails.getLicense())){
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);

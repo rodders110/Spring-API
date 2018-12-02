@@ -1,16 +1,16 @@
-package com.daly_roddy.API.Development.Services;
+package com.daly_roddy.API.Development.Service;
 
 
 import com.google.common.hash.Hashing;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.nio.charset.StandardCharsets;
 
-
 @Service
-public class EncryptionService {
+public class HashingService {
 
-    private final String salt = "sodiumchloride";
+    @Value("${encryption.salt}")
+    private String salt;
 
     public String encrypt(String fullName, String software){
         String originalString = fullName + software + salt;
