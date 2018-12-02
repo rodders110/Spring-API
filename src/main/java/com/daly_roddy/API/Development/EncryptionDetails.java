@@ -2,25 +2,16 @@ package com.daly_roddy.API.Development;
 
 public class EncryptionDetails {
 
-    private String firstName;
-    private String lastname;
+    private String fullName;
     private String program;
     private String password;
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getProgram() {

@@ -12,8 +12,8 @@ public class EncryptionService {
 
     private final String salt = "sodiumchloride";
 
-    public String encrypt(String firstName, String lastName, String software){
-        String originalString = firstName + lastName + software + salt;
+    public String encrypt(String fullName, String software){
+        String originalString = fullName + software + salt;
 
         String encryptedString = Hashing.sha256()
                 .hashString(originalString, StandardCharsets.UTF_8)
@@ -22,7 +22,7 @@ public class EncryptionService {
         return encryptedString;
     }
 
-    public boolean verify(String firstName, String lastName, String software, String key){
-        return key.equals(this.encrypt(firstName, lastName, software));
+    public boolean verify(String fullName, String software, String key){
+        return key.equals(this.encrypt(fullName, software));
     }
 }

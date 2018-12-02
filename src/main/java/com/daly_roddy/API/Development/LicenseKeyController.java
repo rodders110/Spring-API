@@ -27,7 +27,7 @@ public class LicenseKeyController {
     @ResponseBody
     public String getKey(@RequestBody EncryptionDetails encryptionDetails, HttpServletResponse response){
         if(authenticationService.authenticate(encryptionDetails.getPassword())){
-            return encryptionService.encrypt(encryptionDetails.getFirstName(), encryptionDetails.getLastname(), encryptionDetails.getProgram());
+            return encryptionService.encrypt(encryptionDetails.getFullName(), encryptionDetails.getProgram());
         }
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         return "Password incorrect";
@@ -38,7 +38,7 @@ public class LicenseKeyController {
 
 
 
-        if(encryptionService.verify(decryptionDetails.getFirstName(), decryptionDetails.getLastName(), decryptionDetails.getProgram(), decryptionDetails.getLicense())){
+        if(encryptionService.verify(decryptionDetails.getFullName(), decryptionDetails.getProgram(), decryptionDetails.getLicense())){
             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
