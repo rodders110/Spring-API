@@ -34,6 +34,7 @@ public class LicenseKeyController {
     @ResponseBody
     public String getKey(@RequestBody EncryptionDetails encryptionDetails, HttpServletResponse response){
         if(authenticationService.authenticate(encryptionDetails.getPassword())){
+            response.setStatus(HttpServletResponse.SC_OK);
             return encryptionService.encrypt(encryptionDetails.getFullName(), encryptionDetails.getProgram());
         }
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
